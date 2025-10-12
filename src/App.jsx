@@ -1,15 +1,11 @@
-import { Route, Router, Routes } from "react-router-dom"
+import { Route, Routes } from "react-router-dom"
 import Home from "./pages/Home"
-import About from "./pages/About"
-import Contact from "./pages/Contact"
 import Book from "./pages/Book"
 import Navbar from "./Navbar/Navbar"
-import ReachUs from "./pages/ReachUs"
 import Reach from "./Sections/Reach"
 
 import AboutUs from "./Sections/AboutUs"
-import Services from "./Sections/Service"
-import Hire from "./Sections/hire"
+
 import Service from "./Sections/Service"
 
 

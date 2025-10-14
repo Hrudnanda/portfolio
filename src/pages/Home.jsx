@@ -8,6 +8,8 @@ import WhatsAppButton from '../Sections/Whatsapp'
 import Selfe from '../Sections/Selfe'
 import Review from '../Sections/Review'
 
+import Hire from '../Sections/Hire'
+
 
 
 
@@ -25,6 +27,8 @@ function Home() {
     <Reach/>
    
     <Motion/>
+    <Hire/>
+
     <Selfe/>
     <Review/>
     

@@ -72,9 +72,9 @@ const Hero = () => {
         initial={{ x: 100, opacity: 0 }}
         animate={{ x: 0, opacity: 1 }}
         transition={{ duration: 1 }}
-        className="w-full md:w-1/2 mb-10 md:mb-0 flex justify-center relative z-10"
+        className="w-full md:w-1/2 mb-0 md:mb-0 flex justify-center relative z-10"
       >
-        <div className="relative w-72 h-72 md:w-96 md:h-96">
+        <div className="relative mt-10 w-80 h-80 md:w-96 md:h-96">
           <img
             src={meImage}
             alt="Web Developer Avatar"

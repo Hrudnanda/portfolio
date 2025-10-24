@@ -1,4 +1,3 @@
-// About.jsx
 import React from "react";
 import { motion } from "framer-motion";
 import {
@@ -7,6 +6,9 @@ import {
   FaNodeJs,
   FaLaptopCode,
   FaDatabase,
+  FaBriefcase,
+  FaProjectDiagram,
+  FaExternalLinkAlt,
 } from "react-icons/fa";
 
 const skills = [
@@ -24,161 +26,210 @@ const skills = [
   { name: "Figma", icon: <FaCode /> },
 ];
 
+const experiences = [
+  {
+    company: "Juvenile Technology",
+    role: "Core Java",
+    duration: "6 Months",
+    details: [
+      "Implemented object-oriented concepts like classes, inheritance, and polymorphism.",
+      "Enabled book search, issue/return, and fine calculation functionalities.",
+      "Used file handling for data storage and retrieval.",
+    ],
+  },
+  {
+    company: "DRO Organization",
+    role: "Cybersecurity Intern",
+    duration: "3 Months",
+    details: [
+      "Performed vulnerability assessments and ethical hacking simulations.",
+      "Improved system resilience through penetration testing tools.",
+      "Documented findings to strengthen organizational security posture.",
+    ],
+  },
+  {
+    company: "Krishna Graphics",
+    role: "Graphic Designer",
+    duration: "6 Months",
+    details: [
+      "Designed digital marketing and branding assets with modern UI trends.",
+      "Worked on Adobe and Figma for professional-grade client projects.",
+      "Enhanced brand identity through creative design strategy.",
+    ],
+  },
+];
+
 const projects = [
   {
     name: "DevConnect",
     description:
-      "A social platform for developers to share portfolios and connect with each other.",
+      "A developer social platform for portfolios, networking, and collaboration.",
     tech: ["Next.js", "Tailwind", "MongoDB"],
+    demo: "https://devconnect-demo.com",
   },
   {
     name: "Taskly Pro",
     description:
-      "A real-time task manager and collaboration tool for remote teams.",
+      "A real-time collaboration tool for teams with live sync and task tracking.",
     tech: ["React", "Node.js", "Socket.io"],
+    demo: "https://tasklypro-demo.com",
   },
   {
     name: "EcomHaven",
     description:
-      "A fully responsive e-commerce website with user authentication and cart system.",
+      "A full-stack eCommerce app with authentication, cart, and admin dashboard.",
     tech: ["React", "Express", "MongoDB"],
+    demo: "https://ecomhaven-demo.com",
   },
   {
     name: "Portfolify",
     description:
-      "A beautiful portfolio builder for developers and designers.",
+      "An elegant portfolio generator for developers and designers.",
     tech: ["Next.js", "Tailwind", "Framer Motion"],
+    demo: "https://portfolify-demo.com",
   },
 ];
 
 const About = () => {
   return (
-    <section
-      id="about"
-      className="relative z-10 bg-gradient-to-br from-gray-900 via-black to-gray-950 text-white py-24 px-6 md:px-20 overflow-hidden"
-    >
-      {/* Background Glow */}
-      <div className="absolute -top-20 left-1/2 transform -translate-x-1/2 w-[60rem] h-[60rem] bg-blue-500 opacity-20 rounded-full blur-[200px] pointer-events-none" />
+    <section className="relative z-10 bg-gradient-to-br from-black via-gray-900 to-black text-white py-24 px-6 md:px-20 overflow-hidden">
+
+      {/* 🌌 Ambient Glow */}
+      <div className="absolute top-1/3 left-1/2 w-[70rem] h-[70rem] bg-gradient-to-r from-blue-600 via-indigo-500 to-purple-500 opacity-20 rounded-full blur-[250px] -translate-x-1/2 pointer-events-none" />
+
+      {/* ✨ Floating Particles */}
+      <div className="absolute inset-0 overflow-hidden">
+        {[...Array(30)].map((_, i) => (
+          <motion.div
+            key={i}
+            className="absolute w-1 h-1 bg-gradient-to-r from-blue-400 to-indigo-500 rounded-full blur-sm"
+            initial={{
+              x: Math.random() * window.innerWidth,
+              y: Math.random() * window.innerHeight,
+              opacity: 0.3,
+            }}
+            animate={{
+              y: [Math.random() * 600, Math.random() * -600],
+              opacity: [0.2, 0.8, 0.2],
+              scale: [0.8, 1.3, 0.8],
+            }}
+            transition={{
+              duration: 8 + Math.random() * 4,
+              repeat: Infinity,
+              ease: "easeInOut",
+            }}
+          />
+        ))}
+      </div>
 
       <motion.div
         className="max-w-6xl mx-auto relative z-10"
         initial={{ opacity: 0, y: 50 }}
         whileInView={{ opacity: 1, y: 0 }}
         transition={{ duration: 1 }}
-        viewport={{ once: true }}
       >
-        {/* Title */}
-        <div className="mb-12">
-          <motion.h2
-            className="text-4xl md:text-5xl font-extrabold inline-block text-blue-400 relative"
-            initial={{ opacity: 0, x: -40 }}
-            whileInView={{ opacity: 1, x: 0 }}
-            transition={{ duration: 0.8 }}
-          >
-            Who is Hrudananda Biswal?
-            <span className="block h-1 w-24 bg-blue-500 mt-2 rounded-lg" />
-          </motion.h2>
-        </div>
+        {/* Header */}
+        <h2 className="text-5xl md:text-6xl font-extrabold bg-gradient-to-r from-blue-400 via-indigo-500 to-purple-500 bg-clip-text text-transparent mb-12 tracking-wide">
+          Meet Hrudananda Biswal
+        </h2>
 
-        {/* Bio */}
-        <motion.p
-          className="text-lg text-gray-300 mb-14 leading-relaxed max-w-4xl"
-          initial={{ opacity: 0, y: 30 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          transition={{ duration: 1 }}
-        >
-          Hrudananda Biswal is a forward-thinking web developer with over 3 years of hands-on experience
-          in building high-performance web applications. He blends aesthetic UI design with robust backend logic to create impactful digital products.
-          Constantly evolving, he embraces modern frameworks and tools to deliver clean, scalable, and user-centric solutions.
-        </motion.p>
+        <p className="text-lg text-gray-300 max-w-4xl mb-20 leading-relaxed">
+          A passionate Web Developer who fuses design and logic into meaningful
+          digital experiences. With expertise in modern frameworks like React
+          and Next.js, I build interfaces that don’t just function — they
+          captivate.
+        </p>
 
-        {/* Skills */}
-        <motion.div
-          className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-6 mb-20"
-          initial="hidden"
-          whileInView="visible"
-          viewport={{ once: true }}
-          variants={{
-            visible: {
-              transition: {
-                staggerChildren: 0.1,
-              },
-            },
-          }}
-        >
-          {skills.map((skill, index) => (
+        {/* Skills Grid */}
+        <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-6 mb-24">
+          {skills.map((skill, i) => (
             <motion.div
-              key={index}
-              className="bg-white/5 border border-white/10 backdrop-blur-md text-white p-4 rounded-xl shadow-md flex items-center gap-3 hover:scale-105 hover:shadow-blue-500/30 transition duration-300"
-              variants={{
-                hidden: { opacity: 0, y: 20 },
-                visible: { opacity: 1, y: 0 },
-              }}
-              transition={{ duration: 0.4, ease: "easeOut" }}
+              key={i}
+              className="group bg-black/70 border border-blue-600/30 rounded-2xl p-4 flex items-center gap-3 hover:bg-gradient-to-r hover:from-blue-600/20 hover:to-indigo-500/20 transition-all duration-300 backdrop-blur-lg shadow-lg hover:shadow-blue-500/30"
+              whileHover={{ scale: 1.07 }}
             >
-              <div className="text-blue-400 text-xl">{skill.icon}</div>
+              <div className="text-blue-400 text-xl group-hover:rotate-6 transition-transform duration-300">
+                {skill.icon}
+              </div>
               <div className="text-sm font-medium">{skill.name}</div>
             </motion.div>
           ))}
-        </motion.div>
+        </div>
 
-        {/* Experience */}
-        <motion.div
-          className="mb-20"
-          initial={{ opacity: 0, y: 30 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          transition={{ duration: 1 }}
-        >
-          <h3 className="text-3xl font-semibold text-white mb-4">🧠 Experience</h3>
-          <p className="text-gray-300 text-lg">
-            3+ years of experience building scalable web apps using modern technologies.
-            Hrudananda has collaborated with startups, worked on freelance projects,
-            and contributed to open-source tools in the JavaScript ecosystem.
-          </p>
-        </motion.div>
+        {/* Experience Timeline */}
+        <div className="mb-32">
+          <h3 className="text-3xl font-semibold text-blue-400 mb-10 flex items-center gap-2">
+            <FaBriefcase /> Experience
+          </h3>
 
-        {/* Projects */}
-        <motion.div
-          className="mb-10"
-          initial={{ opacity: 0, y: 30 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          transition={{ duration: 1 }}
-        >
-          <h3 className="text-3xl font-semibold text-white mb-10">🚀 Projects</h3>
-
-          <div className="grid md:grid-cols-2 gap-8">
-            {projects.map((project, idx) => (
+          <div className="border-l border-blue-400/30 pl-6">
+            {experiences.map((exp, i) => (
               <motion.div
-                key={idx}
-                className="relative group bg-white/5 border border-white/10 backdrop-blur-xl rounded-2xl p-6 shadow-lg hover:shadow-blue-500/40 transition-all duration-300 overflow-hidden"
-                whileHover={{ scale: 1.04 }}
-                transition={{ type: "spring", stiffness: 120 }}
+                key={i}
+                className="relative mb-10"
+                whileHover={{ scale: 1.02 }}
               >
-                {/* Animated Glow Border */}
-                <div className="absolute inset-0 rounded-2xl bg-gradient-to-r from-blue-500/20 to-purple-500/20 opacity-0 group-hover:opacity-100 transition-opacity duration-300 blur-2xl z-0" />
-
-                <div className="relative z-10">
-                  <h4 className="text-xl font-semibold text-blue-400 mb-2 flex items-center gap-2">
-                    🚀 {project.name}
-                  </h4>
-                  <p className="text-gray-300 text-sm mb-4 leading-relaxed">
-                    {project.description}
-                  </p>
-                  <div className="flex flex-wrap gap-2 mt-2">
-                    {project.tech.map((tech, i) => (
-                      <span
-                        key={i}
-                        className="bg-gradient-to-r from-blue-600/30 to-purple-600/30 text-blue-100 px-3 py-1 rounded-full text-xs font-medium backdrop-blur-md border border-white/10"
-                      >
-                        {tech}
-                      </span>
+                <span className="absolute -left-[10px] top-2 w-4 h-4 bg-gradient-to-br from-blue-500 to-indigo-500 rounded-full shadow-lg shadow-blue-500/50" />
+                <div className="bg-black/70 border border-blue-600/20 rounded-2xl p-6 backdrop-blur-lg hover:border-blue-500/30 transition duration-300">
+                  <h4 className="text-xl font-semibold text-blue-400">{exp.role}</h4>
+                  <p className="text-gray-400 mb-3">{exp.company} — {exp.duration}</p>
+                  <ul className="list-disc list-inside text-gray-300 text-sm space-y-1">
+                    {exp.details.map((d, j) => (
+                      <li key={j}>{d}</li>
                     ))}
-                  </div>
+                  </ul>
                 </div>
               </motion.div>
             ))}
           </div>
-        </motion.div>
+        </div>
+
+        {/* Projects Section */}
+        <h3 className="text-3xl font-semibold text-blue-400 mb-10 flex items-center gap-2">
+          <FaProjectDiagram /> Projects
+        </h3>
+
+        <div className="grid md:grid-cols-2 gap-10">
+          {projects.map((project, idx) => (
+            <motion.div
+              key={idx}
+              className="relative border border-blue-600/20 rounded-3xl p-6 shadow-2xl hover:shadow-[0_0_25px_#3b82f680] transition-all duration-500 group backdrop-blur-lg bg-black/70"
+              whileHover={{ scale: 1.05, rotateY: 2 }}
+            >
+              <div className="absolute inset-0 rounded-3xl bg-gradient-to-r from-blue-500/10 via-indigo-500/10 to-purple-500/10 opacity-0 group-hover:opacity-100 transition-all duration-700 blur-2xl" />
+
+              <div className="relative z-10">
+                <h4 className="text-2xl font-semibold text-transparent bg-clip-text bg-gradient-to-r from-blue-400 via-indigo-400 to-purple-400 mb-3">
+                  {project.name}
+                </h4>
+                <p className="text-gray-300 text-sm mb-4">{project.description}</p>
+                <div className="flex flex-wrap gap-2 mb-6">
+                  {project.tech.map((tech, i) => (
+                    <span
+                      key={i}
+                      className="bg-gradient-to-r from-blue-500/20 to-indigo-500/20 text-blue-200 px-3 py-1 rounded-full text-xs border border-blue-500/20"
+                    >
+                      {tech}
+                    </span>
+                  ))}
+                </div>
+
+                <motion.a
+                  href={project.demo}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  whileHover={{
+                    scale: 1.1,
+                    boxShadow: "0 0 25px rgba(59, 130, 246, 0.6)",
+                  }}
+                  className="inline-flex items-center gap-2 px-5 py-2 rounded-full font-semibold text-black bg-gradient-to-r from-blue-400 via-indigo-500 to-purple-500 hover:shadow-[0_0_25px_#3b82f680] transition-all duration-300"
+                >
+                  View Demo <FaExternalLinkAlt className="text-sm" />
+                </motion.a>
+              </div>
+            </motion.div>
+          ))}
+        </div>
       </motion.div>
     </section>
   );

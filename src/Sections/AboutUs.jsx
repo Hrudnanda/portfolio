@@ -29,7 +29,7 @@ const skills = [
 const experiences = [
   {
     company: "Juvenile Technology",
-    role: "Core Java",
+    role: " Java intern",
     duration: "6 Months",
     details: [
       "Implemented object-oriented concepts like classes, inheritance, and polymorphism.",
@@ -38,7 +38,7 @@ const experiences = [
     ],
   },
   {
-    company: "DRO Organization",
+    company: "DROP Organization",
     role: "Cybersecurity Intern",
     duration: "3 Months",
     details: [

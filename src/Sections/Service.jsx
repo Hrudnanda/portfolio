@@ -80,7 +80,7 @@ const ShieldCheck = (props) => (
 const serviceData = [
   {
     title: "Startup Launchpad (Basic)",
-    price: "₹1,499",
+    price: "₹4,999",
     features: [
       { text: "1-3 Pages", icon: LayoutGrid },
       { text: "Responsive Design", icon: Globe },
@@ -92,7 +92,7 @@ const serviceData = [
   },
   {
     title: "Professional Growth (Standard)",
-    price: "₹4,999",
+    price: "₹9,999",
     features: [
       { text: "Up to 10 Pages & Custom UI", icon: LayoutGrid },
       { text: "CMS (Content Management)", icon: ShieldCheck },
@@ -104,7 +104,7 @@ const serviceData = [
   },
   {
     title: "E-Commerce Powerhouse (Premium)",
-    price: "₹9,999",
+    price: "₹14,999",
     features: [
       { text: "Unlimited Products & Pages", icon: StoreIcon }, 
       { text: "Secure Payment Gateway Setup", icon: ShieldCheck },
@@ -185,7 +185,7 @@ const App = () => {
               // Stat colors: Cyan, Purple, Red
               { label: "Projects Completed", value: "120+", color: "text-cyan-400" },
               { label: "Happy Clients", value: "85+", color: "text-purple-400" },
-              { label: "Years of Experience", value: "3+", color: "text-red-400" },
+              { label: "Months of Experience", value: "36+", color: "text-red-400" },
             ].map((stat, i) => (
               <motion.div
                 key={i}

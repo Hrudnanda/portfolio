@@ -61,7 +61,7 @@ const experiences = [
 
 const projects = [
   {
-    name: "DevConnect",
+    name: "Sahoo Construction",
     description:
       "A developer social platform for portfolios, networking, and collaboration.",
     tech: ["Next.js", "Tailwind", "MongoDB"],

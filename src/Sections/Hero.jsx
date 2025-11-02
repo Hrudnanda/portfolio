@@ -7,9 +7,6 @@ import {
   FaGithub,
   FaHtml5,
   FaCss3Alt,
-  FaUsers,
-  FaHandshake,
-  FaBriefcase,
 } from "react-icons/fa";
 import meImage from "../assets/me1.jpg";
 import { Link } from "react-router-dom";
@@ -21,25 +18,6 @@ const floatingIcons = [
   { icon: <FaHtml5 />, className: "text-orange-500", style: "top-[35%] left-[40%]" },
   { icon: <FaCss3Alt />, className: "text-blue-500", style: "bottom-[30%] right-[35%]" },
 ];
-
-// Count-up animation
-const CountUp = ({ target, duration }) => {
-  const [count, setCount] = React.useState(0);
-  React.useEffect(() => {
-    let start = 0;
-    const increment = target / (duration * 60);
-    const interval = setInterval(() => {
-      start += increment;
-      if (start >= target) {
-        clearInterval(interval);
-        start = target;
-      }
-      setCount(Math.floor(start));
-    }, 1000 / 60);
-    return () => clearInterval(interval);
-  }, [target, duration]);
-  return <span>{count}</span>;
-};
 
 const Hero = () => {
   return (
@@ -88,66 +66,6 @@ const Hero = () => {
             Connect with Me <FaArrowRight />
           </motion.button>
         </Link>
-
-        {/* Glowing Stat Cards */}
-        <div className="mt-10 flex flex-wrap gap-6">
-          {[
-            {
-              icon: <FaHandshake />,
-              color: "text-green-400",
-              glowColor: "rgba(34,197,94,0.8)",
-              value: 50,
-              label: "Happy Clients",
-            },
-            {
-              icon: <FaUsers />,
-              color: "text-blue-400",
-              glowColor: "rgba(59,130,246,0.8)",
-              value: 50000,
-              label: "Active Users",
-            },
-            {
-              icon: <FaBriefcase />,
-              color: "text-yellow-400",
-              glowColor: "rgba(250,204,21,0.8)",
-              value: 36,
-              label: "Months of Experience",
-            },
-          ].map((card, i) => (
-            <motion.div
-              key={i}
-              className="relative flex items-center gap-4 bg-gray-800/60 border border-gray-700 px-6 py-4 rounded-2xl shadow-xl backdrop-blur-sm transition-transform duration-300"
-              animate={{
-                boxShadow: [
-                  `0 0 10px ${card.glowColor}`,
-                  `0 0 25px ${card.glowColor}`,
-                  `0 0 10px ${card.glowColor}`,
-                ],
-              }}
-              transition={{
-                duration: 3,
-                repeat: Infinity,
-                ease: "easeInOut",
-              }}
-              whileHover={{
-                scale: 1.08,
-                boxShadow: [
-                  `0 0 20px 4px ${card.glowColor}`,
-                  `0 0 40px 10px ${card.glowColor}`,
-                  `0 0 25px 5px ${card.glowColor}`,
-                ],
-              }}
-            >
-              <div className={`${card.color} text-4xl`}>{card.icon}</div>
-              <div>
-                <h3 className="text-3xl font-bold text-white">
-                  <CountUp target={card.value} duration={2} />+
-                </h3>
-                <p className="text-gray-400 text-sm">{card.label}</p>
-              </div>
-            </motion.div>
-          ))}
-        </div>
       </motion.div>
 
       {/* Image Section with Aurora Glow */}
@@ -199,6 +117,7 @@ const Hero = () => {
 };
 
 export default Hero;
+
 
 
 

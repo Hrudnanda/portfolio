@@ -19,7 +19,31 @@ const floatingIcons = [
   { icon: <FaCss3Alt />, className: "text-blue-500", style: "bottom-[30%] right-[35%]" },
 ];
 
+// Add more stylish fonts & color combos
+const fontStyles = [
+  { font: "font-extrabold tracking-tight", color: "text-blue-400" },
+  { font: "font-serif italic", color: "text-pink-400" },
+  { font: "font-cursive italic", color: "text-emerald-400" },
+  { font: "font-mono uppercase", color: "text-yellow-400" },
+  { font: "font-black uppercase tracking-widest", color: "text-purple-400" },
+  { font: "font-sans font-semibold italic", color: "text-orange-400" },
+  { font: "font-thin italic", color: "text-lime-400" },
+  { font: "font-bold font-display", color: "text-cyan-400" },
+  { font: "font-mono font-bold text-shadow-lg", color: "text-rose-400" },
+  { font: "font-serif font-extrabold italic", color: "text-fuchsia-400" },
+];
+
 const Hero = () => {
+  const [styleIndex, setStyleIndex] = React.useState(0);
+
+  // Faster cycling (every 0.5s)
+  React.useEffect(() => {
+    const interval = setInterval(() => {
+      setStyleIndex((prev) => (prev + 1) % fontStyles.length);
+    }, 500);
+    return () => clearInterval(interval);
+  }, []);
+
   return (
     <section className="relative min-h-screen bg-gray-900 text-white flex flex-col-reverse md:flex-row items-center justify-between px-6 md:px-20 py-10 overflow-hidden">
       {/* Floating Icons */}
@@ -50,7 +74,25 @@ const Hero = () => {
         className="w-full md:w-1/2 space-y-6 relative z-10 mt-10"
       >
         <h1 className="text-4xl md:text-6xl font-extrabold leading-tight mt-6">
-          Hi, I’m <span className="text-blue-500"><br />Hrudananda Biswal</span><br />
+          Hi, I’m
+          <br />
+          <motion.span
+            key={styleIndex}
+            className={`transition-all duration-300 ease-in-out drop-shadow-lg ${fontStyles[styleIndex].font} ${fontStyles[styleIndex].color}`}
+            animate={{
+              scale: [1, 1.2, 1],
+              opacity: [1, 0.7, 1],
+              rotate: [0, 3, -3, 0],
+            }}
+            transition={{
+              duration: 0.5,
+              repeat: Infinity,
+              ease: "easeInOut",
+            }}
+          >
+            {" "}Hrudananda Biswal
+          </motion.span>
+          <br />
           A Passionate Web Developer & UI/UX Designer
         </h1>
         <p className="text-lg text-gray-300">
@@ -80,7 +122,8 @@ const Hero = () => {
           <motion.div
             className="absolute inset-0 rounded-full blur-3xl"
             style={{
-              background: "conic-gradient(from 0deg, #00f0ff, #6f00ff, #00ffd0, #0099ff, #00f0ff)",
+              background:
+                "conic-gradient(from 0deg, #00f0ff, #6f00ff, #00ffd0, #0099ff, #00f0ff)",
             }}
             animate={{
               rotate: [0, 360],
@@ -117,6 +160,8 @@ const Hero = () => {
 };
 
 export default Hero;
+
+
 
 
 

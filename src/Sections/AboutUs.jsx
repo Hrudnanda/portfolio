@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useRef } from "react";
 import { motion } from "framer-motion";
 import {
   FaCode,
@@ -29,7 +29,7 @@ const skills = [
 const experiences = [
   {
     company: "Juvenile Technology",
-    role: " Java intern",
+    role: "Java Intern",
     duration: "6 Months",
     details: [
       "Implemented object-oriented concepts like classes, inheritance, and polymorphism.",
@@ -91,8 +91,92 @@ const projects = [
 ];
 
 const About = () => {
+  const canvasRef = useRef(null);
+
+  // ⚡ Zigzag motion for random connecting dots
+  useEffect(() => {
+    const canvas = canvasRef.current;
+    const ctx = canvas.getContext("2d");
+    let particles = [];
+    let numParticles = 35;
+    let width = (canvas.width = window.innerWidth);
+    let height = (canvas.height = window.innerHeight);
+
+    // Generate random particles
+    const createParticles = () => {
+      particles = [];
+      for (let i = 0; i < numParticles; i++) {
+        particles.push({
+          x: Math.random() * width,
+          y: Math.random() * height,
+          dx: (Math.random() - 0.5) * 1.2,
+          dy: (Math.random() - 0.5) * 1.2,
+        });
+      }
+    };
+
+    createParticles();
+
+    const draw = () => {
+      ctx.clearRect(0, 0, width, height);
+      ctx.fillStyle = "rgba(0, 180, 255, 0.6)";
+      ctx.strokeStyle = "rgba(100, 180, 255, 0.4)";
+      ctx.lineWidth = 1.2;
+
+      // Draw particles
+      for (let i = 0; i < numParticles; i++) {
+        const p = particles[i];
+        p.x += p.dx;
+        p.y += p.dy;
+
+        if (p.x < 0 || p.x > width) p.dx *= -1;
+        if (p.y < 0 || p.y > height) p.dy *= -1;
+
+        ctx.beginPath();
+        ctx.arc(p.x, p.y, 2, 0, Math.PI * 2);
+        ctx.fill();
+
+        // Connect particles with zigzag-like dynamic lines
+        for (let j = i + 1; j < numParticles; j++) {
+          const q = particles[j];
+          const dist = Math.hypot(p.x - q.x, p.y - q.y);
+          if (dist < 150) {
+            ctx.beginPath();
+            ctx.moveTo(p.x, p.y);
+            // Small zigzag
+            for (let z = 0; z < 3; z++) {
+              const midX = (p.x + q.x) / 2 + Math.sin(Date.now() / 500 + z) * 10;
+              const midY = (p.y + q.y) / 2 + Math.cos(Date.now() / 500 + z) * 10;
+              ctx.lineTo(midX, midY);
+            }
+            ctx.lineTo(q.x, q.y);
+            ctx.stroke();
+          }
+        }
+      }
+
+      requestAnimationFrame(draw);
+    };
+
+    draw();
+
+    const handleResize = () => {
+      width = canvas.width = window.innerWidth;
+      height = canvas.height = window.innerHeight;
+      createParticles();
+    };
+
+    window.addEventListener("resize", handleResize);
+    return () => window.removeEventListener("resize", handleResize);
+  }, []);
+
   return (
     <section className="relative z-10 bg-gradient-to-br from-black via-gray-900 to-black text-white py-24 px-6 md:px-20 overflow-hidden">
+      {/* 🌀 Zigzag motion canvas */}
+      <canvas
+        ref={canvasRef}
+        className="absolute inset-0 w-full h-full opacity-40 pointer-events-none"
+      />
 
       {/* 🌌 Ambient Glow */}
       <div className="absolute top-1/3 left-1/2 w-[70rem] h-[70rem] bg-gradient-to-r from-blue-600 via-indigo-500 to-purple-500 opacity-20 rounded-full blur-[250px] -translate-x-1/2 pointer-events-none" />
@@ -122,13 +206,13 @@ const About = () => {
         ))}
       </div>
 
+      {/* === MAIN CONTENT === */}
       <motion.div
         className="max-w-6xl mx-auto relative z-10"
         initial={{ opacity: 0, y: 50 }}
         whileInView={{ opacity: 1, y: 0 }}
         transition={{ duration: 1 }}
       >
-        {/* Header */}
         <h2 className="text-5xl md:text-6xl font-extrabold bg-gradient-to-r from-blue-400 via-indigo-500 to-purple-500 bg-clip-text text-transparent mb-12 tracking-wide">
           Meet Hrudananda Biswal
         </h2>
@@ -140,7 +224,7 @@ const About = () => {
           captivate.
         </p>
 
-        {/* Skills Grid */}
+        {/* Skills */}
         <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-6 mb-24">
           {skills.map((skill, i) => (
             <motion.div
@@ -172,7 +256,9 @@ const About = () => {
                 <span className="absolute -left-[10px] top-2 w-4 h-4 bg-gradient-to-br from-blue-500 to-indigo-500 rounded-full shadow-lg shadow-blue-500/50" />
                 <div className="bg-black/70 border border-blue-600/20 rounded-2xl p-6 backdrop-blur-lg hover:border-blue-500/30 transition duration-300">
                   <h4 className="text-xl font-semibold text-blue-400">{exp.role}</h4>
-                  <p className="text-gray-400 mb-3">{exp.company} — {exp.duration}</p>
+                  <p className="text-gray-400 mb-3">
+                    {exp.company} — {exp.duration}
+                  </p>
                   <ul className="list-disc list-inside text-gray-300 text-sm space-y-1">
                     {exp.details.map((d, j) => (
                       <li key={j}>{d}</li>
@@ -184,7 +270,7 @@ const About = () => {
           </div>
         </div>
 
-        {/* Projects Section */}
+        {/* Projects */}
         <h3 className="text-3xl font-semibold text-blue-400 mb-10 flex items-center gap-2">
           <FaProjectDiagram /> Projects
         </h3>
@@ -202,7 +288,9 @@ const About = () => {
                 <h4 className="text-2xl font-semibold text-transparent bg-clip-text bg-gradient-to-r from-blue-400 via-indigo-400 to-purple-400 mb-3">
                   {project.name}
                 </h4>
-                <p className="text-gray-300 text-sm mb-4">{project.description}</p>
+                <p className="text-gray-300 text-sm mb-4">
+                  {project.description}
+                </p>
                 <div className="flex flex-wrap gap-2 mb-6">
                   {project.tech.map((tech, i) => (
                     <span
@@ -236,3 +324,4 @@ const About = () => {
 };
 
 export default About;
+

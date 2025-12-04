@@ -42,24 +42,21 @@ const Review = () => {
     const newReview = {
       id: "user-review",
       name: userName.trim(),
-      photo: "https://randomuser.me/api/portraits/lego/1.jpg", // static avatar
+      photo: "https://randomuser.me/api/portraits/lego/1.jpg",
       review: reviewText.trim(),
       rating,
     };
 
-    // Replace any existing user review
     setReviewsList((prev) => {
       const withoutUserReview = prev.filter((r) => r.id !== "user-review");
       return [newReview, ...withoutUserReview];
     });
 
-    // Reset form
     setReviewText("");
     setUserName("");
     setRating(0);
   };
 
-  // Render stars for rating
   const renderStars = (value, setValue = null) => {
     const stars = [];
     for (let i = 1; i <= 5; i++) {
@@ -71,7 +68,7 @@ const Review = () => {
           onMouseEnter={() => setValue && setHoveredRating(i)}
           onMouseLeave={() => setValue && setHoveredRating(0)}
           className={`cursor-pointer text-2xl transition-colors ${
-            isFilled ? "text-yellow-400" : "text-gray-500"
+            isFilled ? "text-fuchsia-500" : "text-gray-600"
           }`}
         >
           ★
@@ -82,7 +79,7 @@ const Review = () => {
   };
 
   return (
-    <section className="min-h-screen bg-gradient-to-br from-purple-900 via-pink-900 to-black text-white px-6 py-12 flex flex-col items-center">
+    <section className="min-h-screen bg-black text-cyan-400 px-6 py-12 flex flex-col items-center">
       <h1 className="text-4xl font-extrabold mb-8 text-center tracking-wide drop-shadow-lg">
         GIVE A COMPLIMENT OR REVIEW
       </h1>
@@ -90,14 +87,14 @@ const Review = () => {
       {/* Review Form */}
       <form
         onSubmit={handleSubmit}
-        className="w-full max-w-3xl bg-white/10 backdrop-blur-lg rounded-3xl p-6 mb-16 shadow-lg space-y-4"
+        className="w-full max-w-3xl bg-[#111] backdrop-blur-lg rounded-3xl p-6 mb-16 shadow-lg space-y-4 border border-fuchsia-500/30"
       >
         <input
           type="text"
           value={userName}
           onChange={(e) => setUserName(e.target.value)}
           placeholder="Your Name"
-          className="w-full p-3 rounded-lg text-gray-900 text-lg focus:outline-none focus:ring-2 focus:ring-purple-400"
+          className="w-full p-3 rounded-lg text-cyan-400 bg-[#222] placeholder-cyan-600 focus:outline-none focus:ring-2 focus:ring-fuchsia-500 focus:border-fuchsia-500 text-lg"
           required
         />
 
@@ -105,7 +102,7 @@ const Review = () => {
           value={reviewText}
           onChange={(e) => setReviewText(e.target.value)}
           placeholder="Write your compliment or review..."
-          className="w-full p-4 rounded-lg text-gray-900 text-lg resize-none focus:outline-none focus:ring-2 focus:ring-pink-500"
+          className="w-full p-4 rounded-lg text-cyan-400 bg-[#222] placeholder-cyan-600 focus:outline-none focus:ring-2 focus:ring-fuchsia-500 focus:border-fuchsia-500 text-lg resize-none"
           rows={4}
           maxLength={300}
           required
@@ -113,13 +110,13 @@ const Review = () => {
 
         {/* Star Rating Selector */}
         <div className="flex items-center space-x-2">
-          <label className="text-lg font-semibold">Rating:</label>
+          <label className="text-lg font-semibold text-cyan-400">Rating:</label>
           <div>{renderStars(rating, setRating)}</div>
         </div>
 
         <button
           type="submit"
-          className="mt-2 bg-pink-600 hover:bg-pink-700 transition-colors text-white font-semibold py-3 px-6 rounded-full w-full shadow-md hover:scale-105"
+          className="mt-2 bg-fuchsia-500 hover:bg-fuchsia-600 transition-colors text-black font-semibold py-3 px-6 rounded-full w-full shadow-lg hover:scale-105"
         >
           Submit Review
         </button>
@@ -137,7 +134,7 @@ const Review = () => {
           return (
             <motion.div
               key={id}
-              className="flex items-center gap-8 bg-white/10 backdrop-blur-lg rounded-3xl p-6 shadow-lg"
+              className="flex items-center gap-8 bg-[#111] backdrop-blur-lg rounded-3xl p-6 shadow-lg border border-fuchsia-500/30"
               animate={{
                 y: [0, floatY, 0],
                 x: [0, floatX, 0],
@@ -154,14 +151,12 @@ const Review = () => {
               <img
                 src={photo}
                 alt={name}
-                className="w-24 h-24 rounded-full object-cover border-4 border-pink-500 shadow-lg flex-shrink-0"
+                className="w-24 h-24 rounded-full object-cover border-4 border-fuchsia-500 shadow-lg flex-shrink-0"
               />
               <div className="flex-1">
-                <h3 className="text-2xl font-bold mb-2">{name}</h3>
-                <p className="text-lg italic text-pink-200 mb-2">"{review}"</p>
-                <div className="text-yellow-400 text-xl">
-                  {renderStars(rating)}
-                </div>
+                <h3 className="text-2xl font-bold text-cyan-400 mb-2">{name}</h3>
+                <p className="text-lg italic text-fuchsia-400 mb-2">"{review}"</p>
+                <div className="text-fuchsia-500 text-xl">{renderStars(rating)}</div>
               </div>
             </motion.div>
           );
@@ -172,4 +167,5 @@ const Review = () => {
 };
 
 export default Review;
+
 

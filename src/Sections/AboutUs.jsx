@@ -1,3 +1,4 @@
+// About.jsx
 import React, { useEffect, useRef } from "react";
 import { motion } from "framer-motion";
 import {
@@ -93,226 +94,172 @@ const projects = [
 const About = () => {
   const canvasRef = useRef(null);
 
-  // Aurora-style particle background
+  // Particles
   useEffect(() => {
     const canvas = canvasRef.current;
     const ctx = canvas.getContext("2d");
-    let particles = [];
-    const numParticles = 35;
-    let width = (canvas.width = window.innerWidth);
-    let height = (canvas.height = window.innerHeight);
 
-    const createParticles = () => {
+    let particles = [];
+    const num = 35;
+    let w = (canvas.width = window.innerWidth);
+    let h = (canvas.height = window.innerHeight);
+
+    const create = () => {
       particles = [];
-      for (let i = 0; i < numParticles; i++) {
+      for (let i = 0; i < num; i++) {
         particles.push({
-          x: Math.random() * width,
-          y: Math.random() * height,
+          x: Math.random() * w,
+          y: Math.random() * h,
           dx: (Math.random() - 0.5) * 1.2,
           dy: (Math.random() - 0.5) * 1.2,
         });
       }
     };
-    createParticles();
+    create();
 
     const draw = () => {
-      ctx.clearRect(0, 0, width, height);
-      ctx.fillStyle = "rgba(125, 249, 255, 0.7)";
-      ctx.strokeStyle = "rgba(167, 139, 250, 0.4)";
-      ctx.lineWidth = 1.2;
+      ctx.clearRect(0, 0, w, h);
 
-      for (let i = 0; i < numParticles; i++) {
-        const p = particles[i];
+      ctx.fillStyle = "rgba(34, 211, 238, 0.6)";
+      ctx.strokeStyle = "rgba(232, 121, 249, 0.25)";
+
+      particles.forEach((p, i) => {
         p.x += p.dx;
         p.y += p.dy;
 
-        if (p.x < 0 || p.x > width) p.dx *= -1;
-        if (p.y < 0 || p.y > height) p.dy *= -1;
+        if (p.x < 0 || p.x > w) p.dx *= -1;
+        if (p.y < 0 || p.y > h) p.dy *= -1;
 
         ctx.beginPath();
         ctx.arc(p.x, p.y, 2, 0, Math.PI * 2);
         ctx.fill();
 
-        for (let j = i + 1; j < numParticles; j++) {
+        for (let j = i + 1; j < num; j++) {
           const q = particles[j];
-          const dist = Math.hypot(p.x - q.x, p.y - q.y);
-          if (dist < 150) {
+          if (Math.hypot(p.x - q.x, p.y - q.y) < 150) {
             ctx.beginPath();
             ctx.moveTo(p.x, p.y);
             ctx.lineTo(q.x, q.y);
             ctx.stroke();
           }
         }
-      }
+      });
+
       requestAnimationFrame(draw);
     };
 
     draw();
-    const handleResize = () => {
-      width = canvas.width = window.innerWidth;
-      height = canvas.height = window.innerHeight;
-      createParticles();
-    };
-    window.addEventListener("resize", handleResize);
-    return () => window.removeEventListener("resize", handleResize);
+    window.addEventListener("resize", () => {
+      w = canvas.width = window.innerWidth;
+      h = canvas.height = window.innerHeight;
+      create();
+    });
   }, []);
 
   return (
-    <section className="relative z-10 bg-gradient-to-br from-[#0f172a] via-[#1e293b] to-[#0a192f] text-white py-24 px-6 md:px-20 overflow-hidden">
-      {/* Aurora Particle Canvas */}
+    <section className="relative bg-black text-white py-24 px-6 md:px-20 overflow-hidden">
+
+      {/* particle canvas */}
       <canvas
         ref={canvasRef}
-        className="absolute inset-0 w-full h-full opacity-30 pointer-events-none"
+        className="absolute inset-0 w-full h-full opacity-20 pointer-events-none"
       />
 
-      {/* Soft Aurora Glow */}
-      <div className="absolute top-1/3 left-1/2 w-[80rem] h-[80rem] bg-gradient-to-r from-[#00ffff] via-[#8b5cf6] to-[#4ade80] opacity-25 rounded-full blur-[280px] -translate-x-1/2 pointer-events-none" />
+      {/* soft cyan + fuchsia glow */}
+      <div className="absolute top-1/2 left-1/2 w-[70rem] h-[70rem] bg-[radial-gradient(circle,rgba(34,211,238,0.25),rgba(255,78,248,0.15),transparent)] blur-[250px] -translate-x-1/2 -translate-y-1/2 pointer-events-none"></div>
 
-      {/* Floating Lights */}
-      <div className="absolute inset-0 overflow-hidden">
-        {[...Array(25)].map((_, i) => (
-          <motion.div
-            key={i}
-            className="absolute w-1.5 h-1.5 bg-gradient-to-r from-cyan-400 to-purple-400 rounded-full blur-sm"
-            initial={{
-              x: Math.random() * window.innerWidth,
-              y: Math.random() * window.innerHeight,
-              opacity: 0.3,
-            }}
-            animate={{
-              y: [Math.random() * 600, Math.random() * -600],
-              opacity: [0.2, 0.9, 0.2],
-              scale: [0.8, 1.3, 0.8],
-            }}
-            transition={{
-              duration: 10 + Math.random() * 5,
-              repeat: Infinity,
-              ease: "easeInOut",
-            }}
-          />
-        ))}
-      </div>
-
-      {/* Main Content */}
       <motion.div
         className="max-w-6xl mx-auto relative z-10"
-        initial={{ opacity: 0, y: 50 }}
+        initial={{ opacity: 0, y: 40 }}
         whileInView={{ opacity: 1, y: 0 }}
         transition={{ duration: 1 }}
       >
-        <h2 className="text-5xl md:text-6xl font-extrabold bg-gradient-to-r from-cyan-300 via-purple-300 to-teal-200 bg-clip-text text-transparent mb-12 tracking-wide">
+        <h2 className="text-5xl md:text-6xl font-extrabold text-transparent bg-clip-text bg-gradient-to-r from-cyan-400 to-fuchsia-400 mb-12">
           Meet Hrudananda Biswal
         </h2>
 
-        <p className="text-lg text-gray-300 max-w-4xl mb-20 leading-relaxed">
-          A passionate Web Developer who fuses design and logic into meaningful
-          digital experiences. With expertise in modern frameworks like React
-          and Next.js, I build interfaces that don’t just function — they
-          captivate.
+        <p className="text-gray-300 max-w-4xl mb-20 leading-relaxed">
+          A passionate Web Developer who creates futuristic & meaningful digital experiences.
         </p>
 
         {/* Skills */}
         <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-6 mb-24">
-          {skills.map((skill, i) => (
+          {skills.map((s, i) => (
             <motion.div
               key={i}
-              className="group bg-[#0f172a]/60 border border-cyan-400/20 rounded-2xl p-4 flex items-center gap-3 hover:bg-gradient-to-r hover:from-cyan-500/20 hover:to-purple-500/20 transition-all duration-300 backdrop-blur-lg shadow-lg hover:shadow-cyan-400/30"
-              whileHover={{ scale: 1.07 }}
+              whileHover={{ scale: 1.06 }}
+              className="bg-black/60 border border-cyan-400/20 rounded-2xl p-4 flex items-center gap-3 hover:border-fuchsia-400/30 hover:bg-black/80 transition-all"
             >
-              <div className="text-cyan-300 text-xl group-hover:rotate-6 transition-transform duration-300">
-                {skill.icon}
-              </div>
-              <div className="text-sm font-medium text-cyan-100">
-                {skill.name}
-              </div>
+              <div className="text-cyan-300 text-xl">{s.icon}</div>
+              <div className="text-sm text-gray-200">{s.name}</div>
             </motion.div>
           ))}
         </div>
 
         {/* Experience */}
-        <div className="mb-32">
-          <h3 className="text-3xl font-semibold text-cyan-300 mb-10 flex items-center gap-2">
-            <FaBriefcase /> Experience
-          </h3>
-
-          <div className="border-l border-cyan-400/30 pl-6">
-            {experiences.map((exp, i) => (
-              <motion.div
-                key={i}
-                className="relative mb-10"
-                whileHover={{ scale: 1.02 }}
-              >
-                <span className="absolute -left-[10px] top-2 w-4 h-4 bg-gradient-to-br from-cyan-400 to-purple-400 rounded-full shadow-lg shadow-cyan-400/50" />
-                <div className="bg-[#0f172a]/70 border border-cyan-400/20 rounded-2xl p-6 backdrop-blur-lg hover:border-cyan-300/30 transition duration-300">
-                  <h4 className="text-xl font-semibold text-cyan-300">
-                    {exp.role}
-                  </h4>
-                  <p className="text-gray-400 mb-3">
-                    {exp.company} — {exp.duration}
-                  </p>
-                  <ul className="list-disc list-inside text-gray-300 text-sm space-y-1">
-                    {exp.details.map((d, j) => (
-                      <li key={j}>{d}</li>
-                    ))}
-                  </ul>
-                </div>
-              </motion.div>
-            ))}
-          </div>
-        </div>
-
-        {/* Projects */}
-        <h3 className="text-3xl font-semibold text-cyan-300 mb-10 flex items-center gap-2">
-          <FaProjectDiagram /> Projects
+        <h3 className="text-3xl font-semibold text-cyan-300 mb-10">
+          <FaBriefcase className="inline mr-2" /> Experience
         </h3>
 
-        <div className="grid md:grid-cols-2 gap-10">
-          {projects.map((project, idx) => (
-            <motion.div
-              key={idx}
-              className="relative border border-cyan-400/20 rounded-3xl p-6 shadow-2xl hover:shadow-[0_0_25px_#22d3ee80] transition-all duration-500 group backdrop-blur-lg bg-[#0f172a]/70"
-              whileHover={{ scale: 1.05, rotateY: 2 }}
-            >
-              <div className="absolute inset-0 rounded-3xl bg-gradient-to-r from-cyan-500/10 via-purple-500/10 to-teal-500/10 opacity-0 group-hover:opacity-100 transition-all duration-700 blur-2xl" />
-              <div className="relative z-10">
-                <h4 className="text-2xl font-semibold text-transparent bg-clip-text bg-gradient-to-r from-cyan-300 via-purple-300 to-teal-300 mb-3">
-                  {project.name}
-                </h4>
-                <p className="text-gray-300 text-sm mb-4">
-                  {project.description}
-                </p>
-                <div className="flex flex-wrap gap-2 mb-6">
-                  {project.tech.map((tech, i) => (
-                    <span
-                      key={i}
-                      className="bg-gradient-to-r from-cyan-400/20 to-purple-400/20 text-cyan-100 px-3 py-1 rounded-full text-xs border border-cyan-400/20"
-                    >
-                      {tech}
-                    </span>
-                  ))}
-                </div>
-
-                <motion.a
-                  href={project.demo}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  whileHover={{
-                    scale: 1.1,
-                    boxShadow: "0 0 25px rgba(34, 211, 238, 0.6)",
-                  }}
-                  className="inline-flex items-center gap-2 px-5 py-2 rounded-full font-semibold text-[#0f172a] bg-gradient-to-r from-cyan-400 via-purple-400 to-teal-300 hover:shadow-[0_0_25px_#22d3ee80] transition-all duration-300"
-                >
-                  View Demo <FaExternalLinkAlt className="text-sm" />
-                </motion.a>
+        <div className="border-l border-cyan-500/30 pl-6 mb-32">
+          {experiences.map((exp, i) => (
+            <motion.div key={i} whileHover={{ scale: 1.02 }} className="relative mb-10">
+              <span className="absolute -left-2 top-2 w-3 h-3 bg-fuchsia-400 rounded-full shadow-lg"></span>
+              <div className="bg-black/70 border border-cyan-400/20 rounded-xl p-6 hover:border-fuchsia-400/30 transition">
+                <h4 className="text-xl font-semibold text-cyan-300">{exp.role}</h4>
+                <p className="text-gray-400 mb-3">{exp.company} — {exp.duration}</p>
+                <ul className="list-disc list-inside text-gray-300 text-sm">
+                  {exp.details.map((d, j) => <li key={j}>{d}</li>)}
+                </ul>
               </div>
             </motion.div>
           ))}
         </div>
+
+        {/* Projects */}
+        <h3 className="text-3xl font-semibold text-cyan-300 mb-10">
+          <FaProjectDiagram className="inline mr-2" /> Projects
+        </h3>
+
+        <div className="grid md:grid-cols-2 gap-10">
+          {projects.map((p, idx) => (
+            <motion.div
+              key={idx}
+              whileHover={{ scale: 1.05 }}
+              className="border border-cyan-400/20 rounded-3xl p-6 bg-black/70 hover:border-fuchsia-400/40 transition-all shadow-xl"
+            >
+              <h4 className="text-2xl font-semibold text-transparent bg-clip-text bg-gradient-to-r from-cyan-400 to-fuchsia-400 mb-3">
+                {p.name}
+              </h4>
+              <p className="text-gray-300 text-sm mb-4">{p.description}</p>
+
+              <div className="flex flex-wrap gap-2 mb-6">
+                {p.tech.map((t, i) => (
+                  <span key={i} className="px-3 py-1 text-xs rounded-full border border-cyan-400/30 text-cyan-200">
+                    {t}
+                  </span>
+                ))}
+              </div>
+
+              <a
+                href={p.demo}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="inline-flex items-center gap-2 px-5 py-2 rounded-full bg-gradient-to-r from-cyan-400 to-fuchsia-400 text-black font-semibold"
+              >
+                View Demo <FaExternalLinkAlt className="text-sm" />
+              </a>
+            </motion.div>
+          ))}
+        </div>
+
       </motion.div>
     </section>
   );
 };
 
 export default About;
+
+
 
 

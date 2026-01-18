@@ -5,7 +5,6 @@ import Navbar from "./Navbar/Navbar"
 import Reach from "./Sections/Reach"
 
 import AboutUs from "./Sections/AboutUs"
-
 import Service from "./Sections/Service"
 
 
@@ -22,6 +21,7 @@ function App() {
         <Routes>
            <Route path="/" element={<Home />} />
           <Route path="/about" element={<AboutUs />} />
+          
           <Route path="/service" element={<Service />} />
           <Route path="/book" element={<Book />} />
 

@@ -1,4 +1,5 @@
 // About.jsx
+import neon1 from "../assets/neon.jpg";
 import React, { useEffect, useRef, useState } from "react"; // Added useState
 import { motion, AnimatePresence } from "framer-motion"; // Added AnimatePresence
 import {
@@ -67,11 +68,11 @@ const experiences = [
 // Split into two separate arrays
 const webProjects = [
   {
-    name: "Sahoo Construction",
-    description: "A developer social platform for portfolios, networking, and collaboration.",
-    tech: ["Next.js", "Tailwind", "MongoDB"],
-    demo: "https://devconnect-demo.com",
-    image: "https://images.unsplash.com/photo-1503387762-592dee58c460?auto=format&fit=crop&q=80&w=800",
+    name: "NEON BATTLE ",
+    description: "A modern and interactive Tic Tac Toe (X & O) game built using React and styled with Tailwind.",
+    tech: ["React.js", "Tailwind", "MongoDB"],
+    demo: "https://neon-battle.vercel.app/",
+    image: neon1,
   },
   {
     name: "Taskly Pro",
